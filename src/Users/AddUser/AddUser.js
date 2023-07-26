@@ -1,11 +1,12 @@
 import React from 'react';
 import classes from './AddUser.module.css';
 import Card from '../../components/UI/Card/Card';
+import Button from '../../components/UI/Button/Button';
 
 const AddUser = (props) => {
 	const addUserHandler = (event) => {
 		event.preventDefault(); //to prevent reloading the page
-		// console.log("username=",event.target.value);
+		console.log("submit form");
 	};
 
 	const onAddUsername = (event) => {
@@ -24,7 +25,7 @@ const AddUser = (props) => {
 				<label htmlFor="age">Age(Years)</label>
 				<input id="age" type="number" />
 
-				<button type="submit">Add User</button>
+				<Button type="submit">Add User</Button>
 			</form>
 		</Card>
 	);

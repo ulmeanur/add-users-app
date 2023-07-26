@@ -1,16 +1,21 @@
 // =============================== 
+// we use props to read the properties added on the component
+
+// =============================== 
 // create a React component
 
 import React, {useState} from 'react';
 import './AddUser.css'
  
 const AddUser = (props) => {
+    console.log("add user");
     return (
-
+        <div></div>
     )
 }
 
 export default AddUser;
+
 
 // =============================== 
 
@@ -24,11 +29,12 @@ import classes from './Card.module.css'
 
 // =============================== 
 
-//create a re-useable Card component
+//create a re-usable Card component
 //that should output what's passed between the opening and closing tags off card
 // using props.children
 // As it is a custom component in order to know about the classes added on it
 // we need to use template literals {`${props.className}`} to inject dinamically the classes
+// we use props to read the properties added on the component
 
 
 import React from 'react';
@@ -43,3 +49,29 @@ const Card = (props) => {
 export default Card;
 
 // =============================== 
+
+//create a re-usable Button component
+
+import React from 'react';
+import classes from './Button.module.css'
+ 
+const Button = (props) => {
+    return (
+        <button
+			className={`${classes.button} ${props.className ? props.className : ''}`}
+			type={props.type || 'button'}
+            onClick={props.onClick}
+		>
+			{props.children}
+		</button>
+    )
+}
+
+export default Button;
+
+// in a separate file call the component
+<Button type="submit">Add User</Button>
+
+
+// =============================== 
+
