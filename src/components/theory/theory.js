@@ -108,3 +108,50 @@ export default Button;
 
 
 // =============================== 
+
+//when you need to update the previous state with the current one 
+//we need to add a function to the setter and use prev...
+
+  const [usersList, setUsersList] = useState([]);
+
+  const addUsersHandler = (uName, uAge) => {
+    
+    setUsersList((prevUsersList) => {
+      return [
+        ...prevUsersList,
+        {username: uName, age: uAge, id:  Math.random().toString()}
+      ];
+    });
+  };
+
+// // =============================== 
+// go through each element of the array using map and an anonymous func as param
+// add key as React needs to identify each elem added dinamically
+
+<ul>
+    {props.users.map((user) => (
+        <li key={user.id}>
+            {user.username}, {user.age} years old
+        </li>
+    ))}
+</ul>
+
+// =============================== 
+
+// Add conditional html
+
+const UsersList = (props) => {
+	const error = true;
+	return (
+		<div>
+			{(props.users.length > 0) &&
+				(<Card>
+                        ...
+				</Card>)
+			}
+		</div>
+	);
+};
+
+
+//=========================
