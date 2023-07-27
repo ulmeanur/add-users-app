@@ -2,6 +2,15 @@
 // we use props to read the properties added on the component
 
 // =============================== 
+
+
+//State Management in React
+// is used to update the state with every keystroke (onChange)
+// and save what the user enters in such a state variable.
+
+import React, {useState} from 'react';
+
+// =============================== 
 // create a React component
 
 import React, {useState} from 'react';
@@ -9,8 +18,33 @@ import './AddUser.css'
  
 const AddUser = (props) => {
     console.log("add user");
+    
+
+    const [enteredUsername, setEnteredUsername] = useState('');
+    // also useState can save data as an object {} where we use prev State to update the current one
+
+	const addUserHandler = (event) => {
+		event.preventDefault(); //to prevent reloading the page
+		console.log('submit form');
+	};
+
+	const usernameChangeHandler  = (event) => {
+		console.log("username=",event.target.value);
+    
+        setEnteredUsername(event.target.value);
+	};
+
     return (
-        <div></div>
+        <div>
+            <form onSubmit={addUserHandler}>
+				<label htmlFor="username" onChange={usernameChangeHandler}>
+					Username
+				</label>
+				<input id="username" type="text" />
+
+                <button type="submit">Add User</button>
+            </form>
+        </div>
     )
 }
 
@@ -74,4 +108,3 @@ export default Button;
 
 
 // =============================== 
-
