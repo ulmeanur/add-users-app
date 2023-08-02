@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import classes from './AddUser.module.css';
 import Card from '../../components/UI/Card/Card';
 import Button from '../../components/UI/Button/Button';
@@ -6,17 +6,21 @@ import ErrorModal from '../../components/UI/ErrorModal/ErrorModal';
 import Wrapper from '../../components/Helpers/Wapper/Wapper';
 
 const AddUser = (props) => {
-	const [enteredUsername, setEnteredUsername] = useState('');
-	const [enteredAge, setEnteredAge] = useState('');
 	const [error, setError] = useState();
+	const nameInputRef = useRef();
+	const ageInputRef = useRef();
 
 	const addUserHandler = (event) => {
 		event.preventDefault(); //to prevent reloading the page
-		console.log('submit form');
-		console.log('username=', enteredUsername);
-		console.log('age=', enteredAge);
 
-		if (enteredUsername.trim().length === 0 || enteredAge.trim().length < 0) {
+		const enteredUser = nameInputRef.current.value;
+		const enteredUserAge = ageInputRef.current.value;
+
+		console.log('submit form');
+		console.log('username=', enteredUser);
+		console.log('age=', enteredUserAge);
+
+		if (enteredUser.trim().length === 0 || enteredUserAge.trim().length < 0) {
 			console.log('Failed to submit form');
 			setError({
 				title: 'Invalid input',
@@ -25,7 +29,7 @@ const AddUser = (props) => {
 			return;
 		}
 
-		if (+enteredAge < 0) {
+		if (+enteredUserAge < 0) {
 			console.log('Failed to submit form');
 			setError({
 				title: 'Invalid input',
@@ -35,29 +39,12 @@ const AddUser = (props) => {
 		}
 
 		console.log('Success - form was submitted');
-		props.onAddUser(enteredUsername, enteredAge);
-		setEnteredUsername('');
-		setEnteredAge('');
-	};
 
-	const usernameChangeHandler = (event) => {
-		console.log('username=', event.target.value);
+		props.onAddUser(enteredUser, enteredUserAge);
 
-		setEnteredUsername(event.target.value);
+		nameInputRef.current.value = '';
+		ageInputRef.current.value = '';
 
-		if (enteredUsername.trim().length === 0) {
-			console.log('error - not a valid username');
-		}
-	};
-
-	const ageChangeHandler = (event) => {
-		console.log('age=', event.target.value);
-
-		setEnteredAge(event.target.value);
-
-		if (enteredAge.trim().length < 0 || +enteredAge < 0) {
-			console.log('error - not a valid age');
-		}
 	};
 
 	const errorHandler = () => {
@@ -80,16 +67,14 @@ const AddUser = (props) => {
 					<input
 						id="username"
 						type="text"
-						value={enteredUsername}
-						onChange={usernameChangeHandler}
+						ref={nameInputRef}
 					/>
 
 					<label htmlFor="age">Age(Years)</label>
 					<input
 						id="age"
 						type="number"
-						value={enteredAge}
-						onChange={ageChangeHandler}
+						ref={ageInputRef}
 					/>
 
 					<Button type="submit">Add User</Button>

@@ -179,7 +179,7 @@ export default Wrapper;
 </React.Fragment>
 
 //=========================
-// Refs
+// Refs - import {useRef} from "react"
 
 // Refs are an alternative for using useState 
 //esspecially when we want just to READ the value and we do not plan to change anything
@@ -197,3 +197,26 @@ export default Wrapper;
 // For e.g. load the Modal backdrop and the Modal overlay exacly after Body tag
 // by creating root divs (root-backdrop, root-overlay) exacly after Body tag.
 // The modal code will be added in the root-divs when it is called from the component that is triggering the modal
+
+import ReactDOM from 'react-dom';
+
+// <Backdrop/> and <ModalOverlay/> are components that will load in another place
+// their target are 'root-backdrop' and 'root-overlay'
+
+<React.Fragment>
+    {ReactDOM.createPortal(
+        <Backdrop onConfirm={props.onConfirm} />,
+        document.getElementById('root-backdrop')
+    )}
+    {ReactDOM.createPortal(
+        <ModalOverlay
+            title={props.title}
+            message={props.message}
+            onConfirm={props.onConfirm}
+        />,
+        document.getElementById('root-overlay')
+    )}
+</React.Fragment>
+
+
+//=========================
