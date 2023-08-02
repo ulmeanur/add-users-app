@@ -155,3 +155,45 @@ const UsersList = (props) => {
 
 
 //=========================
+
+// Beacuse of React/JSX requirements to wrap the content returned in an HTML element
+// we might end up with a bunch of unnecessary divs or elements
+// so called React div soup
+
+//to avoid this behaviour we have more solutions:
+//  1. Create a React Wrapper component and use it instead of the div
+
+import React from 'react';
+ 
+const Wrapper = (props) => {
+    return props.children;
+}
+
+export default Wrapper;
+
+// 2. Use React.Fragments (it's an empty React component) instead of the div
+// it needs to be imported from React
+
+<React.Fragment>
+    [...html code]
+</React.Fragment>
+
+//=========================
+// Refs
+
+// Refs are an alternative for using useState 
+//esspecially when we want just to READ the value and we do not plan to change anything
+// It is not recommended to manipulate the DOM using Refs, only Reacts does that!
+// The only exception would be when we reset the value of the input 
+
+
+
+//=========================
+// Portals
+// Portals are a method (ReactDom.createPortal()) that need to be called from "react-dom"
+// Portals are useful when we want to render a component in another place 
+// than the one we initialize it
+
+// For e.g. load the Modal backdrop and the Modal overlay exacly after Body tag
+// by creating root divs (root-backdrop, root-overlay) exacly after Body tag.
+// The modal code will be added in the root-divs when it is called from the component that is triggering the modal

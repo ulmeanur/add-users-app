@@ -3,9 +3,8 @@ import classes from './UsersList.module.css';
 import Card from '../../components/UI/Card/Card';
 
 const UsersList = (props) => {
-	const error = true;
 	return (
-		<div>
+		<React.Fragment>
 			{(props.users.length > 0) &&
 				(<Card className={classes['users-list']}>
 					<ul>
@@ -17,7 +16,7 @@ const UsersList = (props) => {
 					</ul>
 				</Card>)
 			}
-		</div>
+		</React.Fragment>
 	);
 };
 
