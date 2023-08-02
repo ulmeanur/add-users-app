@@ -186,6 +186,40 @@ export default Wrapper;
 // It is not recommended to manipulate the DOM using Refs, only Reacts does that!
 // The only exception would be when we reset the value of the input 
 
+import React, { useRef } from 'react';
+
+const AddUser = (props) => {
+	const nameInputRef = useRef();
+
+	const addUserHandler = (event) => {
+		event.preventDefault(); //to prevent reloading the page
+
+		const enteredUser = nameInputRef.current.value;1
+        
+        if (enteredUser.trim().length === 0) {
+			console.log('Failed to submit form');
+			return;
+		}
+
+		nameInputRef.current.value = '';
+		console.log('Success - form was submitted');
+
+	};
+
+	return (
+				<form onSubmit={addUserHandler}>
+					<label htmlFor="username">Username</label>
+					<input
+						id="username"
+						type="text"
+						ref={nameInputRef}
+					/>
+					<button type="submit">Add User</button>
+				</form>
+	);
+};
+
+export default AddUser;
 
 
 //=========================
@@ -217,6 +251,9 @@ import ReactDOM from 'react-dom';
         document.getElementById('root-overlay')
     )}
 </React.Fragment>
+
+
+//=========================
 
 
 //=========================
